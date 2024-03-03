@@ -57,8 +57,7 @@ if(activity == "Read something"):
 
 if activity == "Go somewhere":
     list = [i for i in list if "Going" in i]
-
-
+ئس
 
 
 if(cost == "$0"):
