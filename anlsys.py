@@ -100,9 +100,8 @@ if(distance == "25+mi"):
         if "(25+mi)" not in i:
             list.remove(i)
 
-if not list:
-    print("No activities found")
-else:
-    print(list)
-
-
+with open('output.txt', 'w') as f:
+    if not list:
+        f.write("No activities found\n")
+    else:
+        f.write(', '.join(list) + "\n")
