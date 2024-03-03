@@ -1,24 +1,26 @@
-document.getElementById('myForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+document.getElementById('myForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
+    
+    var formData = new FormData(this);
 
-    var question1 = document.querySelector('input[name="question1"]:checked').value;
-    var question2 = document.querySelector('input[name="question2"]:checked').value;
-    var question3 = document.querySelector('input[name="question3"]:checked').value;
-    var question4 = document.querySelector('input[name="question4"]:checked').value;
+    
+    var formParams = new URLSearchParams([...formData]);
 
-    var data = "Question 1: " + question1 + "\n" +
-        "Question 2: " + question2 + "\n" +
-        "Question 3: " + question3 + "\n" +
-        "Question 4: " + question4 + "\n";
+    try {
+        
+        const response = await fetch('http://localhost:3000', {
+            method: 'POST',
+            body: formParams
+        });
 
-    var blob = new Blob([data], { type: 'text/plain' });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-    var downloadLink = document.createElement("a");
-
-    downloadLink.download = "form_data.txt";
-
-    downloadLink.href = URL.createObjectURL(blob);
-
-    downloadLink.click();
+        
+        window.location.href = 'results.html';
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+    }
 });
